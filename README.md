@@ -1,4 +1,4 @@
-### Gogole Untracker
+### Google Untracker
 #### v2.0
 
 Download and install the [Add-On SDK](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation)

@@ -1,56 +1,82 @@
-(function(){
+self.port.on('load', function(){
 
-    var observer = null;
+    if (typeof untracker !== 'undefined')
+        untracker.startObserving();
 
-    function observeEvents(){
+});
 
-        observer = new MutationObserver(function(mutations){
+self.port.on('unload', function(){
 
-            for (var i = 0, i_ = mutations.length; i < i_; i++){
-                var div = document.getElementById('search');
-                if (mutations[i].type.toLowerCase() === 'childlist' && mutations[i].target === div)
-                    removeTracking(div);
-            }
+    if (typeof untracker !== 'undefined')
+        untracker.stopObserving();
 
-        });
+});
 
-        var config = {
-            attributes: true,
-            childList: true,
-            characterData: true,
-            subtree: true
-        };
+var googleUntracker = function(){
+    this.observer = null;
+};
 
-        observer.observe(document.body, config);
+googleUntracker.prototype.startObserving = function(){
 
+    var that = this;
+    this.stopObserving();
+
+    this.observer = new MutationObserver(function(mutations){
+
+        for (var i = 0, i_ = mutations.length; i < i_; i++){
+            var div = document.getElementById('search');
+            if (mutations[i].type.toLowerCase() === 'childlist' && mutations[i].target === div)
+                that.removeTracking(div);
+        }
+
+    });
+
+    var config = {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true
+    };
+
+    this.observer.observe(document.body, config);
+
+};
+
+googleUntracker.prototype.stopObserving = function(){
+
+    if (this.observer !== null){
+        this.observer.disconnect();
+        this.observer = null;
     }
 
-    function removeTracking(div){
+};
 
-        var attr = 'onmousedown';
-        var search = '&url=';
-        var len = search.length;
-        var elements = div.getElementsByTagName('a');
+googleUntracker.prototype.removeTracking = function(div){
 
-        for (var i = 0, i_ = elements.length; i < i_; i++){
+    var attr = 'onmousedown';
+    var search = '&url=';
+    var len = search.length;
+    var elements = div.getElementsByTagName('a');
 
-            if (elements[i].hasAttribute(attr) && elements[i].getAttribute(attr).indexOf('return rwt(this,') > -1){
+    for (var i = 0, i_ = elements.length; i < i_; i++){
 
-                var s = elements[i].getAttribute('href');
-                var pos = s.indexOf(search);
-                var pos2 = s.indexOf('&ei=', pos);
+        if (elements[i].hasAttribute(attr) && elements[i].getAttribute(attr).indexOf('return rwt(this,') > -1){
 
-                elements[i].removeAttribute(attr);
+            var s = elements[i].getAttribute('href');
+            var pos = s.indexOf(search);
+            var pos2 = s.indexOf('&ei=', pos);
 
-                if (pos > -1 && pos2 > -1)
-                    elements[i].setAttribute(decodeURIComponent(s.substr(pos + len, pos2 - pos - len)));
+            elements[i].removeAttribute(attr);
 
-            }
+            if (pos > -1 && pos2 > -1)
+                elements[i].setAttribute(decodeURIComponent(s.substr(pos + len, pos2 - pos - len)));
 
         }
 
     }
 
-    observeEvents();
+};
 
-})();
+var untracker = new googleUntracker();
+
+untracker.startObserving();
