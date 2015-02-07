@@ -1,0 +1,4 @@
+*.xpi
+.idea/*
+*.png
+assets/*

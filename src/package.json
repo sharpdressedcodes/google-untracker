@@ -1,0 +1,12 @@
+{
+    "name": "google-untracker",
+    "title": "Google Untracker",
+    "id": "jid1-0PPAg3kpBlAJHA",
+    "description": "Removes tracking that enables Google to log every search result you open.",
+    "author": "Greg Kappatos (http://websiteconnect.com.au/)",
+    "homepage": "http://websiteconnect.com.au/",
+    "license": "MPL 2.0",
+    "version": "2.0",
+    "icon": "data/google-untracker-48.png",
+    "icon64": "data/google-untracker-64.png"
+}
