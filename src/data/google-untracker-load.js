@@ -1,3 +1,5 @@
+'use strict';
+
 var div = document.getElementById("search");
 var elements = [];
 

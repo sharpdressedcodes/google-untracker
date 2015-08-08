@@ -6,7 +6,8 @@
     "author": "Greg Kappatos (http://websiteconnect.com.au/)",
     "homepage": "http://websiteconnect.com.au/",
     "license": "MPL 2.0",
-    "version": "2.2",
+    "version": "2.3",
+    "permissions": {"private-browsing": true},
     "icon": "data/google-untracker-48.png",
     "icon64": "data/google-untracker-64.png"
 }

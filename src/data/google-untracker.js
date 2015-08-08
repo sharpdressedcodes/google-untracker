@@ -1,3 +1,5 @@
+'use strict';
+
 self.port.on('load', function(){
 
     if (typeof untracker !== 'undefined')

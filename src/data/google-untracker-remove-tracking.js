@@ -1,4 +1,6 @@
-removeTracking = function(elements){
+'use strict';
+
+var removeTracking = function(elements){
 
     var attr = 'onmousedown';
     var search = '&url=';

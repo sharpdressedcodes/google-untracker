@@ -1,22 +1,26 @@
-var worker = null;
+'use strict';
+
+const regex = /http(s)?.*google\.com.*/i;
+const removeFunctionFileName = 'google-untracker-remove-tracking.js';
+
 var pageMod = require('sdk/page-mod');
 var self = require('sdk/self');
 var tabs = require('sdk/tabs');
-var regex = /https.*google\.com.*/;
-var removeFunctionFileName = 'google-untracker-remove-tracking.js';
+var worker = null;
 
 exports.onUnload = function(reason){
 
-    switch (reason){
-        case 'uninstall':
-        case 'disable':
+    //switch (reason){
+        //case 'uninstall':
+        //case 'disable':
         //case 'shutdown':
         //case 'upgrade':
         //case 'downgrade':
-            if (worker !== null)
+            if (worker !== null){
                 worker.port.emit('unload');
-            break;
-    }
+            }
+            //break;
+    //}
 
 };
 
